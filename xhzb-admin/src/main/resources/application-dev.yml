@@ -39,17 +39,17 @@ spring:
   devtools:
     restart:
       # 热部署开关
-      enabled: true
+      enabled: false
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.100.168:3306/xhzb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://192.168.150.200:3306/xhzb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root
-    password: heima123
+    password: 123456
   # redis 配置
   data:
     redis:
       # 地址
-      host: 192.168.100.168
+      host: 192.168.150.200
       # 端口，默认为6379
       port: 6379
       # 数据库索引
@@ -79,4 +79,4 @@ oss:
   endpoint: oss-cn-beijing.aliyuncs.com
   accessKeyId: ${OSS_ACCESS_KEY_ID}
   accessKeySecret: ${OSS_ACCESS_KEY_SECRET}
-  bucketName: itcastwu
+  bucketName: javaweb-project-xhzb
