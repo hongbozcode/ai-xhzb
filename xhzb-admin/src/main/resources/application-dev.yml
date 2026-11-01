@@ -24,6 +24,15 @@ logging:
 
 # Spring配置
 spring:
+
+  ai:
+    openai:
+      api-key: ${DASHSCOPE_API_KEY}  #读取环境变量中的api key
+      base-url: https://dashscope.aliyuncs.com/compatible-mode
+      chat:
+        options:
+          model: qwen3.7-max
+
   # 资源信息
   messages:
     # 国际化资源文件路径
