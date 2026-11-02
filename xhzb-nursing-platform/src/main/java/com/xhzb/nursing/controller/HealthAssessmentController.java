@@ -103,6 +103,14 @@ public class HealthAssessmentController extends BaseController
         return success(healthAssessmentService.insertOrUpdateHealthAssessment(dto));
     }
 
+    /**
+     * AI评估
+     */
+    @PostMapping("/assessmentData")
+    public AjaxResult assessmentData(@RequestBody ElderAssessmentDto dto){
+        return success(healthAssessmentService.assessmentData(dto));
+    }
+
 
     /**
      * 删除健康评估记录
