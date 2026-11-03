@@ -4,6 +4,7 @@ import java.util.List;
 import com.xhzb.nursing.domain.HealthAssessment;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xhzb.nursing.domain.HealthAssessmentDataCollection;
+import com.xhzb.nursing.domain.HealthAssessmentReport;
 import com.xhzb.nursing.domain.dto.ElderAssessmentDto;
 
 /**
@@ -60,4 +61,11 @@ public interface IHealthAssessmentService extends IService<HealthAssessment>
      * @return
      */
     long assessmentData(ElderAssessmentDto dto);
+
+    /**
+     * 查看评估详情(评估结果)
+     * @param id
+     * @return
+     */
+    HealthAssessmentReport getAssessmentDetail(Long id);
 }

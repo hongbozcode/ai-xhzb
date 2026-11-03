@@ -111,6 +111,14 @@ public class HealthAssessmentController extends BaseController
         return success(healthAssessmentService.assessmentData(dto));
     }
 
+    /**
+     * 查看评估详情(评估结果)
+     * @return
+     */
+    @GetMapping("/report/{id}")
+    public AjaxResult getAssessmentDetail(@PathVariable Long id) {
+        return success(healthAssessmentService.getAssessmentDetail(id));
+    }
 
     /**
      * 删除健康评估记录

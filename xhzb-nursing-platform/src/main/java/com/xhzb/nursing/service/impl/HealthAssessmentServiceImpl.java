@@ -330,6 +330,25 @@ public class HealthAssessmentServiceImpl extends ServiceImpl<HealthAssessmentMap
 
 
     /**
+     * 查看评估详情(评估结果)
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public HealthAssessmentReport getAssessmentDetail(Long id) {
+        //select * from t where health_assessment_id=?
+
+        //第一种写法
+        //HealthAssessmentReport detail = reportService.getOne(Wrappers.<HealthAssessmentReport>lambdaQuery().eq(HealthAssessmentReport::getHealthAssessmentId, id));
+
+        //第二种写法
+        HealthAssessmentReport detail = iHealthAssessmentReportService.lambdaQuery().eq(HealthAssessmentReport::getHealthAssessmentId,id).one();
+
+        return detail;
+    }
+
+    /**
      * 批量删除健康评估记录
      * 
      * @param ids 需要删除的健康评估记录主键
