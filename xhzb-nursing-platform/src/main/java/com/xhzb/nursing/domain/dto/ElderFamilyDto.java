@@ -1,8 +1,10 @@
 package com.xhzb.nursing.domain.dto;
 
+import lombok.Data;
 import jakarta.validation.constraints.*;
 
 /** 入住家属信息。 */
+@Data
 public class ElderFamilyDto {
     /** 家属姓名 */
     @NotBlank
@@ -16,10 +18,4 @@ public class ElderFamilyDto {
     @NotBlank
     @Size(max = 20)
     private String kinship;
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public String getKinship() { return kinship; }
-    public void setKinship(String kinship) { this.kinship = kinship; }
 }

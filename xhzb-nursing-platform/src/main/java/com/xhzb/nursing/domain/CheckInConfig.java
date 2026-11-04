@@ -86,31 +86,4 @@ public class CheckInConfig extends BaseEntity
     @Excel(name = "排序编号")
     private Integer sortOrder;
 
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Long getCheckInId() { return checkInId; }
-    public void setCheckInId(Long checkInId) { this.checkInId = checkInId; }
-    public Long getNursingLevelId() { return nursingLevelId; }
-    public void setNursingLevelId(Long nursingLevelId) { this.nursingLevelId = nursingLevelId; }
-    public String getNursingLevelName() { return nursingLevelName; }
-    public void setNursingLevelName(String nursingLevelName) { this.nursingLevelName = nursingLevelName; }
-    public LocalDateTime getFeeStartDate() { return feeStartDate; }
-    public void setFeeStartDate(LocalDateTime feeStartDate) { this.feeStartDate = feeStartDate; }
-    public LocalDateTime getFeeEndDate() { return feeEndDate; }
-    public void setFeeEndDate(LocalDateTime feeEndDate) { this.feeEndDate = feeEndDate; }
-    public BigDecimal getDeposit() { return deposit; }
-    public void setDeposit(BigDecimal deposit) { this.deposit = deposit; }
-    public BigDecimal getNursingFee() { return nursingFee; }
-    public void setNursingFee(BigDecimal nursingFee) { this.nursingFee = nursingFee; }
-    public BigDecimal getBedFee() { return bedFee; }
-    public void setBedFee(BigDecimal bedFee) { this.bedFee = bedFee; }
-    public BigDecimal getInsurancePayment() { return insurancePayment; }
-    public void setInsurancePayment(BigDecimal insurancePayment) { this.insurancePayment = insurancePayment; }
-    public BigDecimal getGovernmentSubsidy() { return governmentSubsidy; }
-    public void setGovernmentSubsidy(BigDecimal governmentSubsidy) { this.governmentSubsidy = governmentSubsidy; }
-    public BigDecimal getOtherFees() { return otherFees; }
-    public void setOtherFees(BigDecimal otherFees) { this.otherFees = otherFees; }
-    public Integer getSortOrder() { return sortOrder; }
-    public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
 }

@@ -1,8 +1,10 @@
 package com.xhzb.nursing.domain.dto;
 
+import lombok.Data;
 import jakarta.validation.constraints.*;
 
 /** 入住老人资料。 */
+@Data
 public class CheckInElderDto {
     /** 老人姓名 */
     @NotBlank
@@ -67,42 +69,4 @@ public class CheckInElderDto {
     /** 核心建议 */
     @Size(max = 50)
     private String coreSuggestion;
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getIdCardNo() { return idCardNo; }
-    public void setIdCardNo(String idCardNo) { this.idCardNo = idCardNo; }
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public Integer getSex() { return sex; }
-    public void setSex(Integer sex) { this.sex = sex; }
-    public Integer getAge() { return age; }
-    public void setAge(Integer age) { this.age = age; }
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
-    public String getBirthday() { return birthday; }
-    public void setBirthday(String birthday) { this.birthday = birthday; }
-    public String getImage() { return image; }
-    public void setImage(String image) { this.image = image; }
-    public String getIdCardNationalEmblemImg() { return idCardNationalEmblemImg; }
-    public void setIdCardNationalEmblemImg(String idCardNationalEmblemImg) { this.idCardNationalEmblemImg = idCardNationalEmblemImg; }
-    public String getIdCardPortraitImg() { return idCardPortraitImg; }
-    public void setIdCardPortraitImg(String idCardPortraitImg) { this.idCardPortraitImg = idCardPortraitImg; }
-    public String getNation() { return nation; }
-    public void setNation(String nation) { this.nation = nation; }
-    public String getEducationLevel() { return educationLevel; }
-    public void setEducationLevel(String educationLevel) { this.educationLevel = educationLevel; }
-    public String getSocialSecurityCard() { return socialSecurityCard; }
-    public void setSocialSecurityCard(String socialSecurityCard) { this.socialSecurityCard = socialSecurityCard; }
-    public String getLivingSituation() { return livingSituation; }
-    public void setLivingSituation(String livingSituation) { this.livingSituation = livingSituation; }
-    public String getReligiousBelief() { return religiousBelief; }
-    public void setReligiousBelief(String religiousBelief) { this.religiousBelief = religiousBelief; }
-    public String getEconomicSource() { return economicSource; }
-    public void setEconomicSource(String economicSource) { this.economicSource = economicSource; }
-    public String getMaritalStatus() { return maritalStatus; }
-    public void setMaritalStatus(String maritalStatus) { this.maritalStatus = maritalStatus; }
-    public String getMedicalPaymentMethod() { return medicalPaymentMethod; }
-    public void setMedicalPaymentMethod(String medicalPaymentMethod) { this.medicalPaymentMethod = medicalPaymentMethod; }
-    public String getCoreSuggestion() { return coreSuggestion; }
-    public void setCoreSuggestion(String coreSuggestion) { this.coreSuggestion = coreSuggestion; }
 }

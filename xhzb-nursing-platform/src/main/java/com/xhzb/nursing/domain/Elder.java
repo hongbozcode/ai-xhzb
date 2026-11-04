@@ -126,49 +126,4 @@ public class Elder extends BaseEntity
     @Excel(name = "核心建议")
     private String coreSuggestion;
 
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getImage() { return image; }
-    public void setImage(String image) { this.image = image; }
-    public String getIdCardNo() { return idCardNo; }
-    public void setIdCardNo(String idCardNo) { this.idCardNo = idCardNo; }
-    public Integer getSex() { return sex; }
-    public void setSex(Integer sex) { this.sex = sex; }
-    public Integer getStatus() { return status; }
-    public void setStatus(Integer status) { this.status = status; }
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public String getBirthday() { return birthday; }
-    public void setBirthday(String birthday) { this.birthday = birthday; }
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
-    public String getIdCardNationalEmblemImg() { return idCardNationalEmblemImg; }
-    public void setIdCardNationalEmblemImg(String idCardNationalEmblemImg) { this.idCardNationalEmblemImg = idCardNationalEmblemImg; }
-    public String getIdCardPortraitImg() { return idCardPortraitImg; }
-    public void setIdCardPortraitImg(String idCardPortraitImg) { this.idCardPortraitImg = idCardPortraitImg; }
-    public String getBedNumber() { return bedNumber; }
-    public void setBedNumber(String bedNumber) { this.bedNumber = bedNumber; }
-    public Long getBedId() { return bedId; }
-    public void setBedId(Long bedId) { this.bedId = bedId; }
-    public String getNation() { return nation; }
-    public void setNation(String nation) { this.nation = nation; }
-    public String getEducationLevel() { return educationLevel; }
-    public void setEducationLevel(String educationLevel) { this.educationLevel = educationLevel; }
-    public String getSocialSecurityCard() { return socialSecurityCard; }
-    public void setSocialSecurityCard(String socialSecurityCard) { this.socialSecurityCard = socialSecurityCard; }
-    public String getLivingSituation() { return livingSituation; }
-    public void setLivingSituation(String livingSituation) { this.livingSituation = livingSituation; }
-    public String getReligiousBelief() { return religiousBelief; }
-    public void setReligiousBelief(String religiousBelief) { this.religiousBelief = religiousBelief; }
-    public String getEconomicSource() { return economicSource; }
-    public void setEconomicSource(String economicSource) { this.economicSource = economicSource; }
-    public String getMaritalStatus() { return maritalStatus; }
-    public void setMaritalStatus(String maritalStatus) { this.maritalStatus = maritalStatus; }
-    public String getMedicalPaymentMethod() { return medicalPaymentMethod; }
-    public void setMedicalPaymentMethod(String medicalPaymentMethod) { this.medicalPaymentMethod = medicalPaymentMethod; }
-    public String getCoreSuggestion() { return coreSuggestion; }
-    public void setCoreSuggestion(String coreSuggestion) { this.coreSuggestion = coreSuggestion; }
 }

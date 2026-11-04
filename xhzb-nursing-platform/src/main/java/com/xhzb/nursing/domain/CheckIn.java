@@ -70,25 +70,4 @@ public class CheckIn extends BaseEntity
     @Excel(name = "排序编号")
     private Integer sortOrder;
 
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getElderName() { return elderName; }
-    public void setElderName(String elderName) { this.elderName = elderName; }
-    public Long getElderId() { return elderId; }
-    public void setElderId(Long elderId) { this.elderId = elderId; }
-    public String getIdCardNo() { return idCardNo; }
-    public void setIdCardNo(String idCardNo) { this.idCardNo = idCardNo; }
-    public LocalDateTime getStartDate() { return startDate; }
-    public void setStartDate(LocalDateTime startDate) { this.startDate = startDate; }
-    public LocalDateTime getEndDate() { return endDate; }
-    public void setEndDate(LocalDateTime endDate) { this.endDate = endDate; }
-    public String getNursingLevelName() { return nursingLevelName; }
-    public void setNursingLevelName(String nursingLevelName) { this.nursingLevelName = nursingLevelName; }
-    public String getBedNumber() { return bedNumber; }
-    public void setBedNumber(String bedNumber) { this.bedNumber = bedNumber; }
-    public Integer getStatus() { return status; }
-    public void setStatus(Integer status) { this.status = status; }
-    public Integer getSortOrder() { return sortOrder; }
-    public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
 }

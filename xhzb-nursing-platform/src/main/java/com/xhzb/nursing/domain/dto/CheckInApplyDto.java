@@ -1,10 +1,12 @@
 package com.xhzb.nursing.domain.dto;
 
+import lombok.Data;
 import java.util.List;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 /** 入住申请参数。 */
+@Data
 public class CheckInApplyDto {
     /** 评估ID */
     @NotNull
@@ -25,14 +27,4 @@ public class CheckInApplyDto {
     @NotNull
     @Valid
     private CheckInContractDto checkInContractDto;
-    public Long getHealthAssessmentId() { return healthAssessmentId; }
-    public void setHealthAssessmentId(Long healthAssessmentId) { this.healthAssessmentId = healthAssessmentId; }
-    public CheckInElderDto getCheckInElderDto() { return checkInElderDto; }
-    public void setCheckInElderDto(CheckInElderDto checkInElderDto) { this.checkInElderDto = checkInElderDto; }
-    public List<@NotNull @Valid ElderFamilyDto> getElderFamilyDtoList() { return elderFamilyDtoList; }
-    public void setElderFamilyDtoList(List<@NotNull @Valid ElderFamilyDto> elderFamilyDtoList) { this.elderFamilyDtoList = elderFamilyDtoList; }
-    public CheckInConfigDto getCheckInConfigDto() { return checkInConfigDto; }
-    public void setCheckInConfigDto(CheckInConfigDto checkInConfigDto) { this.checkInConfigDto = checkInConfigDto; }
-    public CheckInContractDto getCheckInContractDto() { return checkInContractDto; }
-    public void setCheckInContractDto(CheckInContractDto checkInContractDto) { this.checkInContractDto = checkInContractDto; }
 }

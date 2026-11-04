@@ -1,7 +1,9 @@
 package com.xhzb.nursing.domain.vo;
 
+import lombok.Data;
 
 /** 评估采集信息转入住字段。 */
+@Data
 public class AssessmentElderVo {
     /** 联系电话 */
     private String phone;
@@ -27,28 +29,4 @@ public class AssessmentElderVo {
     private String maritalStatus;
     /** 核心建议 */
     private Integer coreSuggestion;
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public String getMedicalPaymentMethod() { return medicalPaymentMethod; }
-    public void setMedicalPaymentMethod(String medicalPaymentMethod) { this.medicalPaymentMethod = medicalPaymentMethod; }
-    public String getNation() { return nation; }
-    public void setNation(String nation) { this.nation = nation; }
-    public String getEducationLevel() { return educationLevel; }
-    public void setEducationLevel(String educationLevel) { this.educationLevel = educationLevel; }
-    public String getIdCardNo() { return idCardNo; }
-    public void setIdCardNo(String idCardNo) { this.idCardNo = idCardNo; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getSocialSecurityCard() { return socialSecurityCard; }
-    public void setSocialSecurityCard(String socialSecurityCard) { this.socialSecurityCard = socialSecurityCard; }
-    public String getLivingSituation() { return livingSituation; }
-    public void setLivingSituation(String livingSituation) { this.livingSituation = livingSituation; }
-    public String getReligiousBelief() { return religiousBelief; }
-    public void setReligiousBelief(String religiousBelief) { this.religiousBelief = religiousBelief; }
-    public String getEconomicSource() { return economicSource; }
-    public void setEconomicSource(String economicSource) { this.economicSource = economicSource; }
-    public String getMaritalStatus() { return maritalStatus; }
-    public void setMaritalStatus(String maritalStatus) { this.maritalStatus = maritalStatus; }
-    public Integer getCoreSuggestion() { return coreSuggestion; }
-    public void setCoreSuggestion(Integer coreSuggestion) { this.coreSuggestion = coreSuggestion; }
 }

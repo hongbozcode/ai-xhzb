@@ -103,37 +103,4 @@ public class Contract extends BaseEntity
     @Excel(name = "排序编号")
     private Integer sortOrder;
 
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Integer getElderId() { return elderId; }
-    public void setElderId(Integer elderId) { this.elderId = elderId; }
-    public String getContractName() { return contractName; }
-    public void setContractName(String contractName) { this.contractName = contractName; }
-    public String getContractNumber() { return contractNumber; }
-    public void setContractNumber(String contractNumber) { this.contractNumber = contractNumber; }
-    public String getAgreementPath() { return agreementPath; }
-    public void setAgreementPath(String agreementPath) { this.agreementPath = agreementPath; }
-    public String getThirdPartyPhone() { return thirdPartyPhone; }
-    public void setThirdPartyPhone(String thirdPartyPhone) { this.thirdPartyPhone = thirdPartyPhone; }
-    public String getThirdPartyName() { return thirdPartyName; }
-    public void setThirdPartyName(String thirdPartyName) { this.thirdPartyName = thirdPartyName; }
-    public String getElderName() { return elderName; }
-    public void setElderName(String elderName) { this.elderName = elderName; }
-    public LocalDateTime getStartDate() { return startDate; }
-    public void setStartDate(LocalDateTime startDate) { this.startDate = startDate; }
-    public LocalDateTime getEndDate() { return endDate; }
-    public void setEndDate(LocalDateTime endDate) { this.endDate = endDate; }
-    public Integer getStatus() { return status; }
-    public void setStatus(Integer status) { this.status = status; }
-    public LocalDateTime getSignDate() { return signDate; }
-    public void setSignDate(LocalDateTime signDate) { this.signDate = signDate; }
-    public String getTerminationSubmitter() { return terminationSubmitter; }
-    public void setTerminationSubmitter(String terminationSubmitter) { this.terminationSubmitter = terminationSubmitter; }
-    public Date getTerminationDate() { return terminationDate; }
-    public void setTerminationDate(Date terminationDate) { this.terminationDate = terminationDate; }
-    public String getTerminationAgreementPath() { return terminationAgreementPath; }
-    public void setTerminationAgreementPath(String terminationAgreementPath) { this.terminationAgreementPath = terminationAgreementPath; }
-    public Integer getSortOrder() { return sortOrder; }
-    public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
 }

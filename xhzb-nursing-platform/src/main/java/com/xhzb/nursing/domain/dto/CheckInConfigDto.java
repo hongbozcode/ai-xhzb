@@ -1,11 +1,13 @@
 package com.xhzb.nursing.domain.dto;
 
+import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 
 /** 入住及费用配置参数。 */
+@Data
 public class CheckInConfigDto {
     /** 床位ID */
     @NotNull
@@ -78,38 +80,4 @@ public class CheckInConfigDto {
     @DecimalMin("0.00")
     @Digits(integer = 8, fraction = 2)
     private BigDecimal otherFees;
-    public Long getBedId() { return bedId; }
-    public void setBedId(Long bedId) { this.bedId = bedId; }
-    public Long getRoomId() { return roomId; }
-    public void setRoomId(Long roomId) { this.roomId = roomId; }
-    public Long getFloorId() { return floorId; }
-    public void setFloorId(Long floorId) { this.floorId = floorId; }
-    public Long getNursingLevelId() { return nursingLevelId; }
-    public void setNursingLevelId(Long nursingLevelId) { this.nursingLevelId = nursingLevelId; }
-    public String getCode() { return code; }
-    public void setCode(String code) { this.code = code; }
-    public String getFloorName() { return floorName; }
-    public void setFloorName(String floorName) { this.floorName = floorName; }
-    public String getNursingLevelName() { return nursingLevelName; }
-    public void setNursingLevelName(String nursingLevelName) { this.nursingLevelName = nursingLevelName; }
-    public LocalDateTime getStartDate() { return startDate; }
-    public void setStartDate(LocalDateTime startDate) { this.startDate = startDate; }
-    public LocalDateTime getEndDate() { return endDate; }
-    public void setEndDate(LocalDateTime endDate) { this.endDate = endDate; }
-    public LocalDateTime getFeeStartDate() { return feeStartDate; }
-    public void setFeeStartDate(LocalDateTime feeStartDate) { this.feeStartDate = feeStartDate; }
-    public LocalDateTime getFeeEndDate() { return feeEndDate; }
-    public void setFeeEndDate(LocalDateTime feeEndDate) { this.feeEndDate = feeEndDate; }
-    public BigDecimal getDeposit() { return deposit; }
-    public void setDeposit(BigDecimal deposit) { this.deposit = deposit; }
-    public BigDecimal getBedFee() { return bedFee; }
-    public void setBedFee(BigDecimal bedFee) { this.bedFee = bedFee; }
-    public BigDecimal getNursingFee() { return nursingFee; }
-    public void setNursingFee(BigDecimal nursingFee) { this.nursingFee = nursingFee; }
-    public BigDecimal getInsurancePayment() { return insurancePayment; }
-    public void setInsurancePayment(BigDecimal insurancePayment) { this.insurancePayment = insurancePayment; }
-    public BigDecimal getGovernmentSubsidy() { return governmentSubsidy; }
-    public void setGovernmentSubsidy(BigDecimal governmentSubsidy) { this.governmentSubsidy = governmentSubsidy; }
-    public BigDecimal getOtherFees() { return otherFees; }
-    public void setOtherFees(BigDecimal otherFees) { this.otherFees = otherFees; }
 }
