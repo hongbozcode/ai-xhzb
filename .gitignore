@@ -49,3 +49,4 @@ nbdist/
 
 .agents
 test
+!xhzb-nursing-platform/src/test/

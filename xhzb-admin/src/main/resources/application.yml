@@ -13,6 +13,12 @@ ruoyi:
   # 验证码类型 math 数字计算 char 字符验证
   captchaType: math
 
+# 微信小程序配置，可通过环境变量覆盖。
+wechat:
+  mini-program:
+    appid: ${WECHAT_MINI_PROGRAM_APPID:wx18ff457de5ecb47c}
+    secret: ${WECHAT_MINI_PROGRAM_SECRET:81870d275dcd7f8ec9460698eda1f0f2}
+
 # 激活环境
 spring:
   profiles:
