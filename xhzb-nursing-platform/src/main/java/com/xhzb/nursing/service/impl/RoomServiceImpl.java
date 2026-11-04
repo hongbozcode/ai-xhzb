@@ -1,5 +1,9 @@
 package com.xhzb.nursing.service.impl;
 
+import com.xhzb.nursing.mapper.AdmissionMapper;
+import com.xhzb.nursing.domain.vo.CheckInRoomVo;
+import com.xhzb.common.exception.ServiceException;
+
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xhzb.common.constant.CacheConstants;
@@ -102,6 +106,17 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements IR
     @Override
     public List<RoomVo> getRoomsWithNurByFloorId(Long floorId) {
         return roomMapper.selectByFloorIdWithNur(floorId);
+    }
+
+    @Autowired
+    private AdmissionMapper admissionMapper;
+
+    /** 根据房间类型名称关联房型价格。 */
+    @Override
+    public CheckInRoomVo getCheckInRoom(Long id) {
+        CheckInRoomVo room = admissionMapper.selectRoom(id);
+        if (room == null) { throw new ServiceException("房间或房型信息不存在"); }
+        return room;
     }
 
 }

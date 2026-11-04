@@ -1,5 +1,7 @@
 package com.xhzb.nursing.service.impl;
 
+
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xhzb.nursing.domain.NursingLevel;
 import com.xhzb.nursing.domain.vo.NursingLevelVo;
@@ -92,6 +94,12 @@ public class NursingLevelServiceImpl extends ServiceImpl<NursingLevelMapper,Nurs
     public int deleteNursingLevelById(Long id)
     {
         return nursingLevelMapper.deleteNursingLevelById(id);
+    }
+
+    /** 仅返回启用的护理等级。 */
+    @Override
+    public List<NursingLevel> listEnabled() {
+        return lambdaQuery().eq(NursingLevel::getStatus, 1).orderByAsc(NursingLevel::getId).list();
     }
 
 }

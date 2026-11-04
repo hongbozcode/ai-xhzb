@@ -1,5 +1,10 @@
 package com.xhzb.nursing.service.impl;
 
+import com.xhzb.nursing.domain.dto.BasicInfo;
+import com.xhzb.nursing.domain.vo.AssessmentElderVo;
+import com.xhzb.common.exception.ServiceException;
+import org.springframework.beans.BeanUtils;
+
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -371,4 +376,22 @@ public class HealthAssessmentServiceImpl extends ServiceImpl<HealthAssessmentMap
     {
         return removeById(id)? 1 : 0;
     }
+    /** 采集表以评估ID作为主键，字段名与入住表不同，需要显式转换。 */
+    @Override
+    public AssessmentElderVo getElderForCheckIn(Long id) {
+        HealthAssessment assessment = getById(id);
+        HealthAssessmentDataCollection collection = selectHealthAssessmentDataCollectionById(id);
+        if (assessment == null || collection == null || collection.getBasicInfo() == null) {
+            throw new ServiceException("评估基本信息不存在");
+        }
+        BasicInfo basic = JSONUtil.toBean(collection.getBasicInfo(), BasicInfo.class);
+        AssessmentElderVo vo = new AssessmentElderVo();
+        BeanUtils.copyProperties(basic, vo);
+        vo.setName(basic.getElderName());
+        vo.setIdCardNo(basic.getIdCard());
+        vo.setPhone(basic.getElderContact());
+        vo.setCoreSuggestion(assessment.getCoreSuggestion());
+        return vo;
+    }
+
 }

@@ -1,5 +1,9 @@
 package com.xhzb.nursing.service.impl;
 
+import com.xhzb.nursing.mapper.AdmissionMapper;
+import com.xhzb.nursing.domain.vo.CascaderVo;
+import com.xhzb.common.exception.ServiceException;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xhzb.nursing.domain.Floor;
 import com.xhzb.nursing.mapper.FloorMapper;
@@ -92,4 +96,16 @@ public class FloorServiceImpl extends ServiceImpl<FloorMapper, Floor> implements
     public List<Floor> selectAllByNur() {
         return floorMapper.selectAllByNur();
     }
+    @Autowired
+    private AdmissionMapper admissionMapper;
+
+    /** 按床位状态构建三级级联数据。 */
+    @Override
+    public List<CascaderVo> getRoomAndBedByBedStatus(Integer status) {
+        if (status == null || (status != 0 && status != 1)) {
+            throw new ServiceException("床位状态只能为0或1");
+        }
+        return admissionMapper.selectBedTree(status);
+    }
+
 }

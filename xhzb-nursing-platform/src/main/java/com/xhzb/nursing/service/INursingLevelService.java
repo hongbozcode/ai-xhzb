@@ -1,5 +1,7 @@
 package com.xhzb.nursing.service;
 
+
+
 import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -61,5 +63,8 @@ public interface INursingLevelService  extends IService<NursingLevel>
      * @return 结果
      */
     public int deleteNursingLevelById(Long id);
+
+    /** 查询所有启用的护理等级。 */
+    List<NursingLevel> listEnabled();
 
 }

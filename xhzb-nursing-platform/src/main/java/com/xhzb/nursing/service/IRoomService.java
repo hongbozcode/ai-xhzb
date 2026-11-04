@@ -1,5 +1,7 @@
 package com.xhzb.nursing.service;
 
+import com.xhzb.nursing.domain.vo.CheckInRoomVo;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xhzb.nursing.domain.Room;
 import com.xhzb.nursing.domain.vo.RoomVo;
@@ -67,5 +69,8 @@ public interface IRoomService extends IService<Room>
      * @return
      */
     List<RoomVo> getRoomsWithNurByFloorId(Long floorId);
+
+    /** 查询房间所属楼层及房型价格。 */
+    CheckInRoomVo getCheckInRoom(Long id);
 
 }

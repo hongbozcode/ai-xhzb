@@ -1,5 +1,7 @@
 package com.xhzb.nursing.controller;
 
+
+
 import com.xhzb.common.annotation.Log;
 import com.xhzb.common.core.controller.BaseController;
 import com.xhzb.common.core.domain.AjaxResult;
@@ -96,4 +98,12 @@ public class FloorController extends BaseController
         List<Floor> list = floorService.selectAllByNur();
         return R.ok(list);
     }
+    /** 入住申请按状态选择床位。 */
+    @PreAuthorize("@ss.hasPermi('nursing:checkIn:add')")
+    @GetMapping("/getRoomAndBedByBedStatus/{status}")
+    @Operation(summary = "按床位状态查询楼层房间床位")
+    public AjaxResult getRoomAndBedByBedStatus(@PathVariable Integer status) {
+        return success(floorService.getRoomAndBedByBedStatus(status));
+    }
+
 }

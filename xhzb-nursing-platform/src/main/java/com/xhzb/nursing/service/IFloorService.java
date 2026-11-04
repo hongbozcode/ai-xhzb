@@ -1,5 +1,7 @@
 package com.xhzb.nursing.service;
 
+import com.xhzb.nursing.domain.vo.CascaderVo;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xhzb.nursing.domain.Floor;
 import com.xhzb.nursing.domain.vo.FloorVo;
@@ -60,4 +62,7 @@ public interface IFloorService extends IService<Floor>
      * @return
      */
     List<Floor> selectAllByNur();
+    /** 按床位状态查询楼层、房间、床位树。 */
+    List<CascaderVo> getRoomAndBedByBedStatus(Integer status);
+
 }

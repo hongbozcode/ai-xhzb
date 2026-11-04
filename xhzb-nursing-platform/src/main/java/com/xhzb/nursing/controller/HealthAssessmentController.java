@@ -1,5 +1,7 @@
 package com.xhzb.nursing.controller;
 
+
+
 import java.util.List;
 
 import com.xhzb.nursing.domain.dto.ElderAssessmentDto;
@@ -131,4 +133,12 @@ public class HealthAssessmentController extends BaseController
     {
         return toAjax(healthAssessmentService.deleteHealthAssessmentByIds(ids));
     }
+    /** 查看老人信息，填充入住申请。 */
+    @PreAuthorize("@ss.hasPermi('nursing:checkIn:add')")
+    @GetMapping("/elder/{id}")
+    @Operation(summary = "查看老人入住基本信息")
+    public AjaxResult elder(@PathVariable Long id) {
+        return success(healthAssessmentService.getElderForCheckIn(id));
+    }
+
 }

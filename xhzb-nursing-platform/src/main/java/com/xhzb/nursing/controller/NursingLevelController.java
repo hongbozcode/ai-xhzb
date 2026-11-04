@@ -1,5 +1,7 @@
 package com.xhzb.nursing.controller;
 
+
+
 import java.util.List;
 
 import com.xhzb.nursing.domain.vo.NursingLevelVo;
@@ -97,4 +99,10 @@ public class NursingLevelController extends BaseController
     {
         return toAjax(nursingLevelService.deleteNursingLevelByIds(ids));
     }
+    /** 入住申请查询全部启用护理等级。 */
+    @PreAuthorize("@ss.hasPermi('nursing:checkIn:add')")
+    @GetMapping("/listAll")
+    @Operation(summary = "查询所有启用护理等级")
+    public AjaxResult listAll() { return success(nursingLevelService.listEnabled()); }
+
 }

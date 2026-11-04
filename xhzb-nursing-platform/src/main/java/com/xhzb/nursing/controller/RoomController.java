@@ -1,5 +1,7 @@
 package com.xhzb.nursing.controller;
 
+
+
 import com.xhzb.common.annotation.Log;
 import com.xhzb.common.core.controller.BaseController;
 import com.xhzb.common.core.domain.AjaxResult;
@@ -105,5 +107,11 @@ public class RoomController extends BaseController
     {
         return toAjax(roomService.deleteRoomByIds(ids));
     }
+
+    /** 查询入住房间及价格。 */
+    @PreAuthorize("@ss.hasPermi('nursing:checkIn:add')")
+    @GetMapping("/one/{id}")
+    @Operation(summary = "查询入住房间及价格")
+    public AjaxResult one(@PathVariable Long id) { return success(roomService.getCheckInRoom(id)); }
 
 }

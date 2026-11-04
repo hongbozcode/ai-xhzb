@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xhzb.nursing.mapper.AdmissionMapper">
+    <select id="lockAssessments" resultType="com.xhzb.nursing.domain.HealthAssessment">
+        select * from health_assessment where id_card = #{idCard} order by id for update
+    </select>
+    <select id="lockActiveCheckIns" resultType="com.xhzb.nursing.domain.CheckIn">
+        select * from check_in where id_card_no = #{idCard} and status = 0 for update
+    </select>
+    <resultMap id="bedTree" type="com.xhzb.nursing.domain.vo.CascaderVo">
+        <id property="value" column="floor_id"/>
+        <result property="label" column="floor_name"/>
+        <collection property="children" ofType="com.xhzb.nursing.domain.vo.CascaderVo">
+            <id property="value" column="room_id"/>
+            <result property="label" column="room_code"/>
+            <collection property="children" ofType="com.xhzb.nursing.domain.vo.CascaderVo">
+                <id property="value" column="bed_id"/>
+                <result property="label" column="bed_number"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="selectBedTree" resultMap="bedTree">
+        select f.id floor_id, f.name floor_name, r.id room_id, r.code room_code,
+               b.id bed_id, b.bed_number
+        from floor f join room r on r.floor_id = f.id
+        join bed b on b.room_id = r.id
+        where r.is_deleted = 0 and b.bed_status = #{status}
+        order by f.code, f.id, r.sort, r.id, b.sort, b.id
+    </select>
+    <select id="selectRoom" resultType="com.xhzb.nursing.domain.vo.CheckInRoomVo">
+        select f.name floor_name, f.id floor_id, r.id room_id, r.code, rt.price
+        from room r join floor f on f.id = r.floor_id
+        join room_type rt on rt.name = r.type_name
+        where r.id = #{id} and r.is_deleted = 0
+    </select>
+</mapper>

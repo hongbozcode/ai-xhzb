@@ -1,0 +1,116 @@
+package com.xhzb.nursing.domain;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xhzb.common.annotation.Excel;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import com.xhzb.common.core.domain.BaseEntity;
+
+/**
+ * 入住配置信息对象 check_in_config
+ * 
+ * @author hongbozcode
+ * @date 2026-11-03
+ */
+@Data
+@Schema(description = "入住配置信息对象")
+public class CheckInConfig extends BaseEntity
+{
+    private static final long serialVersionUID = 1L;
+
+    /** 主键ID */
+    @Schema(title = "主键ID")
+    private Long id;
+
+    /** 入住表ID */
+    @Schema(title = "入住表ID")
+    @Excel(name = "入住表ID")
+    private Long checkInId;
+
+    /** 护理等级ID */
+    @Schema(title = "护理等级ID")
+    @Excel(name = "护理等级ID")
+    private Long nursingLevelId;
+
+    /** 护理等级名称 */
+    @Schema(title = "护理等级名称")
+    @Excel(name = "护理等级名称")
+    private String nursingLevelName;
+
+    /** 费用开始时间 */
+    @Schema(title = "费用开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "费用开始时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private LocalDateTime feeStartDate;
+
+    /** 费用结束时间 */
+    @Schema(title = "费用结束时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "费用结束时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private LocalDateTime feeEndDate;
+
+    /** 押金（元） */
+    @Schema(title = "押金（元）")
+    @Excel(name = "押金", readConverterExp = "元=")
+    private BigDecimal deposit;
+
+    /** 护理费用（元/月） */
+    @Schema(title = "护理费用（元/月）")
+    @Excel(name = "护理费用", readConverterExp = "元=/月")
+    private BigDecimal nursingFee;
+
+    /** 床位费用（元/月） */
+    @Schema(title = "床位费用（元/月）")
+    @Excel(name = "床位费用", readConverterExp = "元=/月")
+    private BigDecimal bedFee;
+
+    /** 医保支付（元/月） */
+    @Schema(title = "医保支付（元/月）")
+    @Excel(name = "医保支付", readConverterExp = "元=/月")
+    private BigDecimal insurancePayment;
+
+    /** 政府补贴（元/月） */
+    @Schema(title = "政府补贴（元/月）")
+    @Excel(name = "政府补贴", readConverterExp = "元=/月")
+    private BigDecimal governmentSubsidy;
+
+    /** 其他费用（元/月） */
+    @Schema(title = "其他费用（元/月）")
+    @Excel(name = "其他费用", readConverterExp = "元=/月")
+    private BigDecimal otherFees;
+
+    /** 排序编号 */
+    @Schema(title = "排序编号")
+    @Excel(name = "排序编号")
+    private Integer sortOrder;
+
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Long getCheckInId() { return checkInId; }
+    public void setCheckInId(Long checkInId) { this.checkInId = checkInId; }
+    public Long getNursingLevelId() { return nursingLevelId; }
+    public void setNursingLevelId(Long nursingLevelId) { this.nursingLevelId = nursingLevelId; }
+    public String getNursingLevelName() { return nursingLevelName; }
+    public void setNursingLevelName(String nursingLevelName) { this.nursingLevelName = nursingLevelName; }
+    public LocalDateTime getFeeStartDate() { return feeStartDate; }
+    public void setFeeStartDate(LocalDateTime feeStartDate) { this.feeStartDate = feeStartDate; }
+    public LocalDateTime getFeeEndDate() { return feeEndDate; }
+    public void setFeeEndDate(LocalDateTime feeEndDate) { this.feeEndDate = feeEndDate; }
+    public BigDecimal getDeposit() { return deposit; }
+    public void setDeposit(BigDecimal deposit) { this.deposit = deposit; }
+    public BigDecimal getNursingFee() { return nursingFee; }
+    public void setNursingFee(BigDecimal nursingFee) { this.nursingFee = nursingFee; }
+    public BigDecimal getBedFee() { return bedFee; }
+    public void setBedFee(BigDecimal bedFee) { this.bedFee = bedFee; }
+    public BigDecimal getInsurancePayment() { return insurancePayment; }
+    public void setInsurancePayment(BigDecimal insurancePayment) { this.insurancePayment = insurancePayment; }
+    public BigDecimal getGovernmentSubsidy() { return governmentSubsidy; }
+    public void setGovernmentSubsidy(BigDecimal governmentSubsidy) { this.governmentSubsidy = governmentSubsidy; }
+    public BigDecimal getOtherFees() { return otherFees; }
+    public void setOtherFees(BigDecimal otherFees) { this.otherFees = otherFees; }
+    public Integer getSortOrder() { return sortOrder; }
+    public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
+}

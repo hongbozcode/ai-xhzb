@@ -1,5 +1,7 @@
 package com.xhzb.nursing.service;
 
+import com.xhzb.nursing.domain.vo.AssessmentElderVo;
+
 import java.util.List;
 import com.xhzb.nursing.domain.HealthAssessment;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -68,4 +70,7 @@ public interface IHealthAssessmentService extends IService<HealthAssessment>
      * @return
      */
     HealthAssessmentReport getAssessmentDetail(Long id);
+    /** 根据评估ID读取采集基本信息并转换为入住字段。 */
+    AssessmentElderVo getElderForCheckIn(Long id);
+
 }
