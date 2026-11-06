@@ -1,7 +1,9 @@
 package com.xhzb.framework.config;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+import com.xhzb.framework.interceptor.MemberInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +42,9 @@ public class ResourcesConfig implements WebMvcConfigurer
                 .setCacheControl(CacheControl.maxAge(5, TimeUnit.HOURS).cachePublic());
     }
 
+
+    @Autowired
+    private MemberInterceptor memberInterceptor;
     /**
      * 自定义拦截规则
      */
@@ -47,6 +52,7 @@ public class ResourcesConfig implements WebMvcConfigurer
     public void addInterceptors(InterceptorRegistry registry)
     {
         registry.addInterceptor(repeatSubmitInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(memberInterceptor).addPathPatterns("/member/**").excludePathPatterns(Arrays.asList("/member/user/login","/member/roomTypes"));
     }
 
     /**
