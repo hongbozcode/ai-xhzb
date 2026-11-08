@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xhzb.nursing.mapper.FamilyMemberElderMapper">
+    <sql id="familyElderJoin">
+        from family_member_elder binding
+        inner join family_member fm on fm.id = binding.family_member_id
+        inner join elder on elder.id = binding.elder_id
+    </sql>
+
+    <select id="selectMyFamily" resultType="com.xhzb.nursing.domain.vo.FamilyMemberElderVo">
+        select binding.id, binding.family_member_id as familyMemberId,
+               binding.elder_id as elderId, elder.name as elderName
+        <include refid="familyElderJoin"/>
+        where binding.family_member_id = #{familyMemberId}
+        order by binding.id
+    </select>
+
+    <select id="selectMyFamilyDetails" resultType="com.xhzb.nursing.domain.vo.FamilyMemberElderDetailVo">
+        select binding.id as mid, binding.remark as mremark, elder.id as elderId,
+               elder.name, elder.image, coalesce(bed.bed_number, elder.bed_number) as bedNumber,
+               room.type_name as typeName, wearable.iot_id as iotId,
+               wearable.device_name as deviceName, wearable.product_key as productKey
+        <include refid="familyElderJoin"/>
+        left join bed on bed.id = elder.bed_id
+        left join room on room.id = bed.room_id and room.is_deleted = 0
+        <!-- 老人至多绑定一台随身手表，未绑定时仍返回老人记录。 -->
+        left join device wearable on wearable.binding_location = concat('', elder.id)
+            and wearable.location_type = 0
+        where binding.family_member_id = #{familyMemberId}
+        order by binding.id
+    </select>
+</mapper>
