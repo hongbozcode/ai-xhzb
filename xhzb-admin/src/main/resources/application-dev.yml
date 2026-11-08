@@ -24,6 +24,18 @@ logging:
 
 # Spring配置
 spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    virtual-host: ${RABBITMQ_VHOST:/}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    connection-timeout: 5s
+    channel-rpc-timeout: 5s
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template:
+      mandatory: true
 
   ai:
     openai:
@@ -91,6 +103,10 @@ oss:
   bucketName: javaweb-project-xhzb
 
 huaweicloud:
+  bridge-enabled: ${IOTDA_BRIDGE_ENABLED:false}
+  connection-count: 1
+  bridge-workers: 4
+  bridge-max-in-flight: 64
   ak:  ${HUAWEICLOUD_SDK_AK}
   sk:  ${HUAWEICLOUD_SDK_SK}
   #如果是上海一，请填写"cn-east-3"；如果是北京四，请填写"cn-north-4";
@@ -98,7 +114,7 @@ huaweicloud:
   endpoint: 98a6fca484.st1.iotda-app.cn-north-4.myhuaweicloud.com
   projectId: ac11cebde4714437892f0bbb9d61bbe7
   #amqp相关配置 第二天课程接收设备数据使用
-  host: 123
-  accessKey: 123
-  accessCode: 123
-  queueName: 123
+  host: ${IOTDA_HOST:}
+  accessKey: ${IOTDA_ACCESS_KEY:}
+  accessCode: ${IOTDA_ACCESS_CODE:}
+  queueName: ${IOTDA_QUEUE_NAME:}

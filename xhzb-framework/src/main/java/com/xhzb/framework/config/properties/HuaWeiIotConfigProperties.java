@@ -68,6 +68,12 @@ public class HuaWeiIotConfigProperties {
     //可根据实际情况自由调节，目前测试和正式环境资源有限，限制更改为4
     private int connectionCount = 4;
 
+    /** 桥接发布线程数，不同设备可以并行发布。 */
+    private int bridgeWorkers = 4;
+
+    /** 桥接已接收但尚未确认的消息数上限。 */
+    private int bridgeMaxInFlight = 64;
+
     /**
      * 队列名称
      */

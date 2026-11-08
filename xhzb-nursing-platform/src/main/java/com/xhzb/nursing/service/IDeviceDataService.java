@@ -2,6 +2,7 @@ package com.xhzb.nursing.service;
 
 import java.util.List;
 import com.xhzb.nursing.domain.DeviceData;
+import com.xhzb.nursing.domain.vo.IotDaDeviceReportVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,6 +13,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IDeviceDataService extends IService<DeviceData>
 {
+    /**
+     * 批量保存已登记设备的上报属性。
+     *
+     * @param report IoTDA 设备上报
+     */
+    void saveDeviceReport(IotDaDeviceReportVo report);
+
     /**
      * 查询设备数据
      * 
