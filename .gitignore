@@ -48,5 +48,5 @@ nbdist/
 !*/build/*.xml
 
 .agents
-test
+test/
 !xhzb-nursing-platform/src/test/
