@@ -46,4 +46,7 @@ public class CacheConstants
      * iot产品列表缓存key
      */
     public static final String IOT_PRODUCT_LIST = "iot:product:list";
+
+    /** 设备最新上报数据，Hash 字段为 IoTDA 设备 ID。 */
+    public static final String IOT_DATA_LIST = "iot:data:list";
 }

@@ -108,4 +108,17 @@ public class FloorServiceImpl extends ServiceImpl<FloorMapper, Floor> implements
         return admissionMapper.selectBedTree(status);
     }
 
+    /**
+     * 查询智能楼层
+     *
+     * @return
+     */
+    /**
+     * 查询智能楼层
+     * @return
+     */
+    @Override
+    public List<FloorVo> getAllFloorsWithDevice() {
+        return floorMapper.getAllFloorsWithDevice();
+    }
 }

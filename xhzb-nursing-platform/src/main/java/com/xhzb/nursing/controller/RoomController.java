@@ -34,6 +34,14 @@ public class RoomController extends BaseController
     @Autowired
     private IRoomService roomService;
 
+    /** 获取指定楼层已绑定设备的房间和床位。 */
+    @PreAuthorize("@ss.hasPermi('elder:room:list')")
+    @GetMapping("/getRoomsWithDeviceByFloorId/{floorId}")
+    @Operation(summary = "获取房间中的智能设备及数据")
+    public R<List<RoomVo>> getRoomsWithDeviceByFloorId(@PathVariable("floorId") Long floorId) {
+        return R.ok(roomService.getRoomsWithDeviceByFloorId(floorId));
+    }
+
 
     @GetMapping("/getRoomsWithNurByFloorId/{floorId}")
     @Operation(summary = "获取所有房间（负责老人）")

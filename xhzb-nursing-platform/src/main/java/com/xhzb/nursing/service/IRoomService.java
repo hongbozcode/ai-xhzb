@@ -63,6 +63,9 @@ public interface IRoomService extends IService<Room>
      */
     List<RoomVo> getRoomsByFloorId(Long floorId);
 
+    /** 查询指定楼层的房间、床位绑定设备及最新上报。 */
+    List<RoomVo> getRoomsWithDeviceByFloorId(Long floorId);
+
     /**
      * 获取所有房间（负责老人）
      * @param floorId

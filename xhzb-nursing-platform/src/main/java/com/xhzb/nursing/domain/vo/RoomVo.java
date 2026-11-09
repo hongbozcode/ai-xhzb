@@ -1,5 +1,6 @@
 package com.xhzb.nursing.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -29,5 +30,9 @@ public class RoomVo {
 
     @Schema(title = "床位列表")
     private List<BedVo> bedVoList;
+
+    /** 绑定在房间上的固定设备。 */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<RoomDeviceVo> deviceVos;
 
 }

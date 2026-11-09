@@ -1,5 +1,6 @@
 package com.xhzb.nursing.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.xhzb.common.core.domain.entity.SysUser;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -47,5 +48,9 @@ public class BedVo {
 
     @Schema(title = "护理员")
     private List<SysUser> userVos;
+
+    /** 绑定在床位上的固定设备。 */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<RoomDeviceVo> deviceVos;
 
 }

@@ -106,4 +106,9 @@ public class FloorController extends BaseController
         return success(floorService.getRoomAndBedByBedStatus(status));
     }
 
+    @GetMapping("/getAllFloorsWithDevice")
+    public AjaxResult getAllFloorWithDevice(){
+        return success(floorService.getAllFloorsWithDevice());
+    }
+
 }

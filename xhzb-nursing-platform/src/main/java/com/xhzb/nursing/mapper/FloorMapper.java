@@ -65,4 +65,6 @@ public interface FloorMapper extends BaseMapper<Floor>
     public int deleteFloorByIds(Long[] ids);
 
     List<Floor> selectAllByNur();
+
+    List<FloorVo> getAllFloorsWithDevice();
 }

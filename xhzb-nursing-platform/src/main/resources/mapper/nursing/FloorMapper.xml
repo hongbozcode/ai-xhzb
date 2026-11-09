@@ -89,4 +89,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <select id="getAllFloorsWithDevice" resultType="com.xhzb.nursing.domain.vo.FloorVo">
+        select f.id,f.name,f.code from floor f
+                                           left join room r on r.floor_id=f.id
+                                           left join bed b on b.room_id=r.id
+                                           left join device d on d.binding_location=r.id and d.location_type=1 and d.physical_location_type=1
+                                           left join device dd on dd.binding_location=b.id and dd.location_type=1 and dd.physical_location_type=2
+        where d.id is not null or dd.id is not  null
+        group by f.id
+        order by f.id
+    </select>
 </mapper>

@@ -120,6 +120,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by r.sort, r.create_time desc
     </select>
 
+    <resultMap id="boundDeviceResultMap" type="com.xhzb.nursing.domain.vo.RoomDeviceVo">
+        <id property="id" column="id"/>
+        <result property="iotId" column="iot_id"/>
+        <result property="deviceName" column="device_name"/>
+        <result property="productKey" column="product_key"/>
+        <result property="productName" column="product_name"/>
+    </resultMap>
+
+    <resultMap id="roomWithDevicesResultMap" type="com.xhzb.nursing.domain.vo.RoomVo">
+        <id property="id" column="room_id"/>
+        <result property="floorId" column="floor_id"/>
+        <result property="code" column="room_code"/>
+        <collection property="deviceVos" resultMap="boundDeviceResultMap" columnPrefix="rd_" notNullColumn="id"/>
+        <collection property="bedVoList" ofType="com.xhzb.nursing.domain.vo.BedVo" notNullColumn="bed_id">
+            <id property="id" column="bed_id"/>
+            <result property="bedNumber" column="bed_number"/>
+            <result property="bedStatus" column="bed_status"/>
+            <result property="ename" column="elder_name"/>
+            <result property="elderId" column="elder_id"/>
+            <collection property="deviceVos" resultMap="boundDeviceResultMap" columnPrefix="bd_" notNullColumn="id"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectByFloorIdWithDevices" resultMap="roomWithDevicesResultMap" resultOrdered="true">
+        select r.id as room_id, r.floor_id, r.code as room_code,
+               b.id as bed_id, b.bed_number, b.bed_status, e.id as elder_id, e.name as elder_name,
+               rd.id as rd_id, rd.iot_id as rd_iot_id, rd.device_name as rd_device_name,
+               rd.product_key as rd_product_key, rd.product_name as rd_product_name,
+               bd.id as bd_id, bd.iot_id as bd_iot_id, bd.device_name as bd_device_name,
+               bd.product_key as bd_product_key, bd.product_name as bd_product_name
+        from room r
+        left join bed b on b.room_id = r.id
+        left join elder e on e.bed_id = b.id and e.status in (1, 2)
+        left join device rd on rd.binding_location =
+            cast(r.id as char(20) character set utf8mb4) collate utf8mb4_unicode_ci
+            and rd.location_type = 1 and rd.physical_location_type = 1
+        left join device bd on bd.binding_location =
+            cast(b.id as char(20) character set utf8mb4) collate utf8mb4_unicode_ci
+            and bd.location_type = 1 and bd.physical_location_type = 2
+        where r.floor_id = #{floorId} and coalesce(r.is_deleted, 0) = 0
+        order by r.sort, r.id, b.sort, b.id, rd.id, bd.id
+    </select>
+
     <insert id="insertRoom" parameterType="Room" useGeneratedKeys="true" keyProperty="id">
         insert into room
         <trim prefix="(" suffix=")" suffixOverrides=",">

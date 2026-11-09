@@ -3,6 +3,7 @@ package com.xhzb.nursing.service.impl;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xhzb.common.constant.CacheConstants;
 import com.xhzb.common.exception.ServiceException;
 import com.xhzb.common.utils.DateUtils;
 import com.xhzb.nursing.domain.Device;
@@ -12,8 +13,13 @@ import com.xhzb.nursing.mapper.DeviceDataMapper;
 import com.xhzb.nursing.mapper.DeviceMapper;
 import com.xhzb.nursing.service.IDeviceDataService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -34,6 +40,7 @@ import java.util.Map;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DeviceDataServiceImpl extends ServiceImpl<DeviceDataMapper, DeviceData> implements IDeviceDataService
 {
     private static final DateTimeFormatter IOTDA_EVENT_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmssX");
@@ -41,6 +48,7 @@ public class DeviceDataServiceImpl extends ServiceImpl<DeviceDataMapper, DeviceD
 
     private final DeviceDataMapper deviceDataMapper;
     private final DeviceMapper deviceMapper;
+    private final StringRedisTemplate stringRedisTemplate;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -79,10 +87,32 @@ public class DeviceDataServiceImpl extends ServiceImpl<DeviceDataMapper, DeviceD
                 }
             }
         }
-        if (!records.isEmpty() && !saveBatch(records))
+        if (records.isEmpty() || !saveBatch(records))
         {
             throw new ServiceException("批量保存设备上报数据失败");
         }
+        cacheAfterCommit(device.getIotId(), JSON.toJSONString(records));
+    }
+
+    /** MySQL 提交后再覆盖缓存，避免查询到已回滚的上报数据。 */
+    private void cacheAfterCommit(String iotId, String dataJson)
+    {
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization()
+        {
+            @Override
+            public void afterCommit()
+            {
+                try
+                {
+                    stringRedisTemplate.opsForHash().put(CacheConstants.IOT_DATA_LIST, iotId, dataJson);
+                }
+                catch (DataAccessException exception)
+                {
+                    // 数据已入库，缓存故障不能触发 RabbitMQ 重投并重复写入历史记录。
+                    log.error("更新设备最新数据缓存失败，iotId={}", iotId, exception);
+                }
+            }
+        });
     }
 
     /** 将上报属性拆成独立记录，并保留入库时的设备和位置字段。 */
