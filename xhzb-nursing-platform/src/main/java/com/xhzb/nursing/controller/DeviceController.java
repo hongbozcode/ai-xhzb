@@ -143,4 +143,9 @@ public class DeviceController extends BaseController
         return success(productVoList);
     }
 
+    @GetMapping("/queryProduct/{productKey}")
+    public AjaxResult queryProduct(@PathVariable String productKey){
+        return deviceService.queryProduct(productKey);
+    }
+
 }

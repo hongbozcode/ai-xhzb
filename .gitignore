@@ -50,3 +50,8 @@ nbdist/
 .agents
 test/
 !xhzb-nursing-platform/src/test/
+assets
+docs
+lessons
+reference
+*.md

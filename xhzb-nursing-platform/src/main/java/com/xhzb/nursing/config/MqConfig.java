@@ -15,6 +15,8 @@ public class MqConfig {
     public static final String DEVICE_DATA_QUEUE = "xhzb.iot.device-data";
     public static final String DEVICE_ALERT_QUEUE = "xhzb.iot.device-alert";
     public static final String TELEMETRY_ROUTING_KEY = "device.telemetry.reported";
+    public static final String ALERT_CREATED_ROUTING_KEY = "device.alert.created";
+
     @Bean
     public MessageConverter messageConverter() {
         Jackson2JsonMessageConverter jackson2JsonMessageConverter = new Jackson2JsonMessageConverter();

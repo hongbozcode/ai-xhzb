@@ -3,6 +3,7 @@ package com.xhzb.quartz.util;
 import java.util.Date;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
+import org.quartz.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.xhzb.common.constant.Constants;
@@ -34,19 +35,24 @@ public abstract class AbstractQuartzJob implements Job
     {
         SysJob sysJob = new SysJob();
         BeanUtils.copyBeanProp(sysJob, context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES));
+        Exception taskException = null;
         try
         {
             before(context, sysJob);
-            if (sysJob != null)
-            {
-                doExecute(context, sysJob);
-            }
-            after(context, sysJob, null);
+            doExecute(context, sysJob);
         }
         catch (Exception e)
         {
-            log.error("任务执行异常  - ：", e);
-            after(context, sysJob, e);
+            taskException = e;
+            log.error("任务执行异常，任务={}", context.getJobDetail().getKey(), e);
+        }
+        try
+        {
+            after(context, sysJob, taskException);
+        }
+        catch (RuntimeException e)
+        {
+            log.error("写入定时任务执行日志失败，任务={}", context.getJobDetail().getKey(), e);
         }
     }
 
@@ -74,7 +80,9 @@ public abstract class AbstractQuartzJob implements Job
 
         final SysJobLog sysJobLog = new SysJobLog();
         sysJobLog.setJobName(sysJob.getJobName());
-        sysJobLog.setJobGroup(sysJob.getJobGroup());
+        // 新建任务未传分组时，任务参数可能为空，但 Quartz 已分配默认组。
+        String jobGroup = context.getJobDetail().getKey().getGroup();
+        sysJobLog.setJobGroup(StringUtils.isEmpty(jobGroup) ? Scheduler.DEFAULT_GROUP : jobGroup);
         sysJobLog.setInvokeTarget(sysJob.getInvokeTarget());
         sysJobLog.setStartTime(startTime);
         sysJobLog.setStopTime(new Date());

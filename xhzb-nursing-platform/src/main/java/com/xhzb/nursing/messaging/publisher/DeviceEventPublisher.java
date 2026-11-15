@@ -1,6 +1,7 @@
 package com.xhzb.nursing.messaging.publisher;
 
 import com.xhzb.nursing.config.MqConfig;
+import com.xhzb.nursing.domain.dto.AlertCreatedEvent;
 import com.xhzb.nursing.domain.vo.IotDaDeviceReportVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.AmqpException;
@@ -9,6 +10,7 @@ import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -21,13 +23,19 @@ public class DeviceEventPublisher {
 
     /** 发布 IoTDA 上报对象，等待 RabbitMQ 确认。 */
     public void publish(IotDaDeviceReportVo report) {
+        publish(MqConfig.TELEMETRY_ROUTING_KEY, report);
+    }
+
+    /** 发布已提交的报警记录 ID，供通知消费者使用。 */
+    public void publishAlertCreated(List<Long> alertDataIds) {
+        AlertCreatedEvent event = new AlertCreatedEvent();
+        event.setAlertDataIds(List.copyOf(alertDataIds));
+        publish(MqConfig.ALERT_CREATED_ROUTING_KEY, event);
+    }
+
+    private void publish(String routingKey, Object payload) {
         CorrelationData correlation = new CorrelationData();
-        rabbitTemplate.convertAndSend(
-                MqConfig.IOT_EXCHANGE,
-                MqConfig.TELEMETRY_ROUTING_KEY,
-                report,
-                correlation
-        );
+        rabbitTemplate.convertAndSend(MqConfig.IOT_EXCHANGE, routingKey, payload, correlation);
 
         CorrelationData.Confirm confirm;
         try {
@@ -43,10 +51,10 @@ public class DeviceEventPublisher {
 
         ReturnedMessage returned = correlation.getReturned();
         if (returned != null) {
-            throw new AmqpException("设备消息被 RabbitMQ 退回：" + returned.getReplyText());
+            throw new AmqpException("消息被 RabbitMQ 退回：" + returned.getReplyText());
         }
         if (!confirm.isAck()) {
-            throw new AmqpException("RabbitMQ 拒绝发布设备消息：" + confirm.getReason());
+            throw new AmqpException("RabbitMQ 拒绝发布消息：" + confirm.getReason());
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.xhzb.web.controller.system;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ArrayUtils;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.xhzb.common.annotation.Log;
+import com.xhzb.common.constant.UserConstants;
 import com.xhzb.common.core.controller.BaseController;
 import com.xhzb.common.core.domain.AjaxResult;
 import com.xhzb.common.core.domain.entity.SysDept;
@@ -57,6 +59,25 @@ public class SysUserController extends BaseController
         startPage();
         List<SysUser> list = userService.selectUserList(user);
         return getDataTable(list);
+    }
+
+    /**
+     * 查询指定部门的在用员工选项。
+     */
+    @PreAuthorize("@ss.hasPermi('system:user:list')")
+    @GetMapping("/listByDeptId")
+    public AjaxResult listByDeptId(@RequestParam("deptId") Long deptId)
+    {
+        if (deptId <= 0)
+        {
+            return error("部门编号必须大于 0");
+        }
+        SysUser query = new SysUser();
+        query.setDeptId(deptId);
+        query.setStatus(UserConstants.NORMAL);
+        return success(userService.selectUserList(query).stream()
+                .map(user -> Map.of("userId", user.getUserId(), "nickName", user.getNickName()))
+                .toList());
     }
 
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)

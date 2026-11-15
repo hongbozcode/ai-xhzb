@@ -21,6 +21,7 @@ import org.apache.qpid.jms.message.JmsMessageSupport;
 import org.apache.qpid.jms.transports.TransportOptions;
 import org.apache.qpid.jms.transports.TransportSupport;
 import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.core.Binding;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -98,9 +99,13 @@ public class IotDaAmqpBridge implements ApplicationRunner {
             throw new IllegalStateException("IoTDA 桥接的发布线程数和在途消息上限必须大于 0");
         }
         // 首次连接 RabbitMQ 时声明监听器定义的队列与绑定，再启动 IoTDA 消费。
-        if (amqpAdmin.getQueueInfo(MqConfig.DEVICE_DATA_QUEUE) == null
-                || amqpAdmin.getQueueInfo(MqConfig.DEVICE_ALERT_QUEUE) == null) {
+        if (amqpAdmin.getQueueInfo(MqConfig.DEVICE_DATA_QUEUE) == null) {
             throw new IllegalStateException("RabbitMQ 设备上报队列尚未就绪");
+        }
+        // 旧绑定保存在持久队列上。升级后显式解除，防止告警队列继续收到原始上报。
+        if (amqpAdmin.getQueueInfo(MqConfig.DEVICE_ALERT_QUEUE) != null) {
+            amqpAdmin.removeBinding(new Binding(MqConfig.DEVICE_ALERT_QUEUE, Binding.DestinationType.QUEUE,
+                    MqConfig.IOT_EXCHANGE, MqConfig.TELEMETRY_ROUTING_KEY, Map.of()));
         }
 
         Subscription subscription = openSubscription();

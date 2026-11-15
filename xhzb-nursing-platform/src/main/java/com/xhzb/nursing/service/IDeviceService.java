@@ -1,6 +1,8 @@
 package com.xhzb.nursing.service;
 
 import java.util.List;
+
+import com.xhzb.common.core.domain.AjaxResult;
 import com.xhzb.nursing.domain.Device;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xhzb.nursing.domain.vo.ProductVo;
@@ -112,5 +114,12 @@ public interface IDeviceService extends IService<Device>
      * @return
      */
     List<ProductVo> allProduct();
+
+    /**
+     * 查询产品详情
+     * @param productKey
+     * @return
+     */
+    AjaxResult queryProduct(String productKey);
 
 }
